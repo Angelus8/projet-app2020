@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+<title>Validation</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+<script type="text/javascript" src="QrLib/jquery.min.js"></script>
+<script type="text/javascript" src="QrLib/qrcode.js"></script>
+<script type="text/javascript" src="QrLib/imprime.js"></script>
+</head>
+<body>
+
+
+<input id="text" type="text" value="https://cdn.pixabay.com/photo/2016/11/14/04/45/elephant-1822636_960_720.jpg" hidden="true"  style="width:80% " />
+<div id="qrcode" style="width:300px; height:300px; margin-top:150px; margin-left: 500px;"></div>
+
+<form > 
+	<input style="margin-left: 500px; margin-top: 50px; background-color: orangered; width: 300px; height: 100px;" type="button" class="btn btn-success" value="IMPRIMER" onclick="window.print()">
+</form>
+
+
+
+
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 300,
+	height : 300
+});
+
+function makeCode () {		
+	var elText = document.getElementById("text");
+	
+	if (!elText.value) {
+		alert("Input a text");
+		elText.focus();
+		return;
+	}
+	
+	qrcode.makeCode(elText.value);
+}
+
+makeCode();
+
+$("#text").
+	on("blur", function () {
+		makeCode();
+	}).
+	on("keydown", function (e) {
+		if (e.keyCode == 13) {
+			makeCode();
+		}
+	});
+</script>
+</body>
